@@ -75,6 +75,7 @@
       border-radius: 50%;
       z-index: 5;
       pointer-events: none;
+      transition: width 0.5s ease, height 0.5s ease, background-color 0.5s ease;
     }
   </style>
 </head>
@@ -102,6 +103,7 @@
         const img = document.createElement("img");
         img.src = rabbitImages[Math.floor(Math.random() * rabbitImages.length)];
         img.className = "rabbit";
+        img.style.position = "absolute";
         img.style.top = Math.random() * (window.innerHeight - 80) + "px";
         img.style.left = Math.random() * (window.innerWidth - 80) + "px";
         document.body.appendChild(img);
@@ -113,6 +115,15 @@
     }
 
     let circleSize = 300;
+    const minSize = 50;
+    const step = 30;
+
+    function getRandomColor() {
+      const r = Math.floor(Math.random() * 256);
+      const g = Math.floor(Math.random() * 256);
+      const b = Math.floor(Math.random() * 256);
+      return `rgba(${r}, ${g}, ${b}, 0.2)`;
+    }
 
     function daraltTavsan() {
       const mesajDiv = document.getElementById("mesaj");
@@ -125,7 +136,13 @@
         document.body.appendChild(circle);
       }
 
-      circleSize = Math.max(50, circleSize - 30); // minimum boyut sınırı
+      if (circleSize - step < minSize) {
+        circleSize = 300;
+        circle.style.backgroundColor = getRandomColor(); // renk değiştir
+      } else {
+        circleSize -= step;
+      }
+
       circle.style.width = circleSize + "px";
       circle.style.height = circleSize + "px";
     }
