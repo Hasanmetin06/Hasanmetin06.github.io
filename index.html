@@ -65,6 +65,17 @@
         transform: scale(1);
       }
     }
+
+    #circle {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(255, 0, 0, 0.2);
+      border-radius: 50%;
+      z-index: 5;
+      pointer-events: none;
+    }
   </style>
 </head>
 <body>
@@ -72,25 +83,21 @@
   <button class="rainbow-button" onclick="gosterMesaj('Burak tavşana doyasıya fışkırtıldı.')">
     Burak Tavşana Fışkırt
   </button>
-  <button class="rainbow-button" onclick="gosterMesaj('Burak Tavşan Daraltıldı.')">
+  <button class="rainbow-button" onclick="daraltTavsan()">
     Burak Tavşanı Daralt
   </button>
 
   <div id="mesaj"></div>
 
   <script>
-const rabbitImages = [
-  "https://w7.pngwing.com/pngs/614/574/png-transparent-gray-rabbit-rabbit-animal-small-fresh-thumbnail.png",
-  "https://w7.pngwing.com/pngs/614/574/png-transparent-gray-rabbit-rabbit-animal-small-fresh-thumbnail.png",
-  "https://w7.pngwing.com/pngs/614/574/png-transparent-gray-rabbit-rabbit-animal-small-fresh-thumbnail.png",
-  "https://w7.pngwing.com/pngs/614/574/png-transparent-gray-rabbit-rabbit-animal-small-fresh-thumbnail.png"
-];
+    const rabbitImages = [
+      "https://w7.pngwing.com/pngs/614/574/png-transparent-gray-rabbit-rabbit-animal-small-fresh-thumbnail.png"
+    ];
 
     function gosterMesaj(metin) {
       const mesajDiv = document.getElementById("mesaj");
       mesajDiv.innerText = metin;
 
-      // Sayfaya 10 tane rastgele konumda tavşan ekle
       for (let i = 0; i < 10; i++) {
         const img = document.createElement("img");
         img.src = rabbitImages[Math.floor(Math.random() * rabbitImages.length)];
@@ -99,11 +106,28 @@ const rabbitImages = [
         img.style.left = Math.random() * (window.innerWidth - 80) + "px";
         document.body.appendChild(img);
 
-        // 5 saniye sonra tavşanı kaldır
         setTimeout(() => {
           img.remove();
         }, 5000);
       }
+    }
+
+    let circleSize = 300;
+
+    function daraltTavsan() {
+      const mesajDiv = document.getElementById("mesaj");
+      mesajDiv.innerText = "Burak Tavşan Daraltıldı.";
+
+      let circle = document.getElementById("circle");
+      if (!circle) {
+        circle = document.createElement("div");
+        circle.id = "circle";
+        document.body.appendChild(circle);
+      }
+
+      circleSize = Math.max(50, circleSize - 30); // minimum boyut sınırı
+      circle.style.width = circleSize + "px";
+      circle.style.height = circleSize + "px";
     }
   </script>
 </body>
