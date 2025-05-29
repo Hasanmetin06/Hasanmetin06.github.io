@@ -1,36 +1,111 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <title>Buton Uygulaması</title>
+  <meta charset="UTF-8" />
+  <title>Burak Tavşan Eğlencesi</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       text-align: center;
-      padding-top: 100px;
+      padding: 50px;
+      background-color: #f0f8ff;
+      position: relative;
+      overflow-x: hidden;
+      min-height: 100vh;
     }
-    button {
-      padding: 10px 20px;
+
+    .rainbow-button {
+      padding: 15px 30px;
       font-size: 18px;
+      font-weight: bold;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      margin: 15px;
+      background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
+      color: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      transition: transform 0.2s ease;
     }
+
+    .rainbow-button:hover {
+      transform: scale(1.1);
+    }
+
     #mesaj {
-      margin-top: 30px;
-      font-size: 20px;
-      color: green;
-      display: none;
+      margin-top: 35px;
+      font-size: 24px;
+      font-weight: 700;
+      color: #333;
+      min-height: 30px;
+    }
+
+    .rabbit {
+      position: absolute;
+      width: 60px;
+      height: auto;
+      pointer-events: none;
+      user-select: none;
+      animation: fadeIn 1s ease forwards;
+      transition: transform 0.3s ease;
+    }
+
+    .rabbit:hover {
+      transform: scale(1.3) rotate(15deg);
+      z-index: 10;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
   </style>
 </head>
 <body>
 
-  <button onclick="mesajiGoster()">Bas</button>
-  <div id="mesaj">Burak Tavşan Daraltıldı.</div>
+  <button class="rainbow-button" onclick="gosterMesaj('Burak tavşana doyasıya fışkırtıldı.')">
+    Burak Tavşana Fışkırt
+  </button>
+  <button class="rainbow-button" onclick="gosterMesaj('Burak Tavşan Daraltıldı.')">
+    Burak Tavşanı Daralt
+  </button>
+
+  <div id="mesaj"></div>
 
   <script>
-    function mesajiGoster() {
-      document.getElementById("mesaj").style.display = "block";
+    const rabbitImages = [
+      "https://i.postimg.cc/0yXQxr2J/cute-rabbit1.png",
+      "https://i.postimg.cc/GpM6yWYW/cute-rabbit2.png",
+      "https://i.postimg.cc/fyP7YgJP/cute-rabbit3.png",
+      "https://i.postimg.cc/8cVbQR5q/cute-rabbit4.png",
+      "https://i.postimg.cc/fyKr6rXq/cute-rabbit5.png"
+    ];
+
+    function gosterMesaj(metin) {
+      const mesajDiv = document.getElementById("mesaj");
+      mesajDiv.innerText = metin;
+
+      // Sayfaya 10 tane rastgele konumda tavşan ekle
+      for (let i = 0; i < 10; i++) {
+        const img = document.createElement("img");
+        img.src = rabbitImages[Math.floor(Math.random() * rabbitImages.length)];
+        img.className = "rabbit";
+        img.style.top = Math.random() * (window.innerHeight - 80) + "px";
+        img.style.left = Math.random() * (window.innerWidth - 80) + "px";
+        document.body.appendChild(img);
+
+        // 5 saniye sonra tavşanı kaldır
+        setTimeout(() => {
+          img.remove();
+        }, 5000);
+      }
     }
   </script>
-
 </body>
 </html>
