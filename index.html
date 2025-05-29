@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Buton Uygulaması</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding-top: 100px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+    }
+    #mesaj {
+      margin-top: 30px;
+      font-size: 20px;
+      color: green;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <button onclick="mesajiGoster()">Bas</button>
+  <div id="mesaj">Burak Tavşan Daraltıldı.</div>
+
+  <script>
+    function mesajiGoster() {
+      document.getElementById("mesaj").style.display = "block";
+    }
+  </script>
+
+</body>
+</html>
